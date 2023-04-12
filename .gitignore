@@ -6,7 +6,8 @@
 *.pot
 *.pyc
 __pycache__/
-djangoweb.settings.py
+djangoweb
+settings.py
 web_blog_db
 db.sqlite3-journal
 media
