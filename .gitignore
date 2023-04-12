@@ -6,7 +6,7 @@
 *.pot
 *.pyc
 __pycache__/
-local_settings.py
+settings.py
 web_blog_db
 db.sqlite3-journal
 media
