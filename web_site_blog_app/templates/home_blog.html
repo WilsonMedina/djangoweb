@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% block title %} Blog {% endblock %}
+{% block content %} 
+<!--Blog-->
+<section class="resume-section">
+<div class="resume-section-content mt-5">
+    <div class="col-lg-12">
+        <!--Categories-->
+        <div class="card mb-4">
+            <div class="card-header">Categorias</div>
+            <div class="card-body">
+                <div class="row">
+                    {% if categories %}
+                        {% for category in categories %}
+                            <div class="col-6">
+                                <ul class="list-unstyled mb-0">
+                                    <li>
+                                        <a class="text-decoration-none" href="{% url 'blog:list_posts' category.pk %}">{{ category.name }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <!--Search-->
+            <div class="card mb-4">
+              <div class="card-header">Buscar</div>
+              <div class="card-body">
+                  <form method="GET">
+                      <div class="input-group">
+                          <input name="search" class="form-control" type="text" placeholder="Palabra clave a buscar..." value="{{ request.GET.search }}"/>
+                          <button class="text-decoration-none text-light btn btn-primary p-2" type="submit">Buscar</button>
+                      </div>
+                  </form>
+              </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">Debes estar registrado para crear un Post!</div>
+                <div class="card-body text-center">
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'blog:create_post' %}" class="text-decoration-none border border-light text-light rounded shadow btn btn-primary p-2">Crear Post</a>
+                    {% else %}
+                    <a href="{% url 'auth:register' %}" class="text-decoration-none border border-light text-light rounded shadow btn btn-primary p-2">Crear Post</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+    <!--Blog-->
+    <div class="row">
+        {% if posts %}
+            {% for post in posts %}
+                <div class="col-lg-6">
+                    <!-- Blog post--> 
+                    <div class="card mb-4">
+                        <img class="card-img-top" src="{{ post.image.url }}" alt="..." />
+                        <div class="card-body">
+                            <div class="small text-muted">{{ post.created | date:'d M Y' }}</div>
+                            <h2 class="card-title h4">{{ post.title }}</h2>
+                            <p class="card-title">{{ post.excerpt }}</p>
+                            <p class="card-text"><strong>Author:</strong> {{ post.author.first_name }} {{ post.author.last_name }}</p>
+                            <a class="text-decoration-none border border-light text-light rounded shadow btn btn-primary" href="{% url 'blog:read_post' post.pk %}">Leer más ...</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}    
+        {% endif %}
+    </div>
+    <!-- Pagination-->
+    <div class="row"> 
+        <ul class="pagination justify-content-center my-4">
+            <li class="page-item mx-2">
+            {% if posts.has_previous %}
+            <div class="clearfix">
+                <a href="?page={{ posts.previous_page_number }}" class="text-decoration-none text-light rounded btn btn-primary">ANT</a>
+            </div>
+            {% endif %}
+            </li>
+            <li class="page-item">
+            {% if posts.has_next %}
+            <div class="clearfix">
+                <a href="?page={{ posts.next_page_number }}" class="text-decoration-none text-light rounded btn btn-primary">SIG</a>
+            </div>
+            {% endif %}  
+            </li>
+        </ul>    
+    </div> 
+    </div>  
+</div>
+</section>
+{% endblock %}
+
+
+

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %} Experiencia {% endblock %}
+{% block content %}
+<!-- Experience-->
+<section class="resume-section" id="experience">
+    <div class="resume-section-content mt-5">
+        <h2 class="mb-5">Experiencia laboral</h2>
+        {% if experiences %}
+            {% for experience in experiences %}
+                <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                    <div class="flex-grow-1">
+                        <h3 class="mb-0">{{ experience.position }}</h3>
+                        <div class="subheading mb-3">{{ experience.company }}</div>
+                        <p>{{ experience.description | safe }}</p>
+                    </div>
+                    <div class="flex-shrink-0"><span class="text-primary">{{ experience.period }}</span></div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

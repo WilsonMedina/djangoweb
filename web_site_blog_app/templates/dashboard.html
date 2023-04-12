@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block title %} Dashboard {% endblock %}
+{% block content %}
+<section class="resume-section">
+    <div class="resume-section-content mt-5">
+        <div class="d-flex align-items-center">
+            <div class="flex-shrink-0">
+                <a href="{% url 'blog:update_photo' profile.pk %}" class="text-decoration-none"><img class="rounded-circle border border-2 border-dark" src="{{ profile.image.url }}" height="80px" width="80px" title="Actualizar Foto" alt="Foto perfil"/></a>
+              <div class="mt-5">
+                <span>{{ profile.author.first_name }} {{ profile.author.last_name }}</span>
+              </div>
+            </div>
+            <div class="flex-grow-1 d-flex justify-content-end">
+                <a href="{% url 'blog:update_profile' user.pk %}" class="text-decoration-none rounded shadow btn btn-dark">Mi Perfil</a>
+            </div>
+        </div>
+        {% if posts %}
+         <div class="card mt-5">
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <div class="d-flex justify-content-between">
+                            <h3 class="mb-5 pt-3">Mis Posts</h3>
+                            <div class="align-self-start">
+                                <a href="{% url 'blog:create_post' %}" class="text-decoration-none rounded shadow btn btn-dark">Crear Post</a>
+                            </div>  
+                        </div>
+                        <hr>
+                        <tr>
+                            <th>Titulo</th>
+                            <th class="d-none d-md-table-cell d-lg-table-cell">Categoria</th>
+                            <th class="d-none d-md-table-cell d-lg-table-cell">Creado</th>
+                            <th>Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for post in posts %}
+                        <tr>
+                            <td>{{ post.title }}</td>
+                            <td class="d-none d-md-table-cell d-lg-table-cell">{{ post.category }}</td>
+                            <td class="d-none d-md-table-cell d-lg-table-cell">{{ post.created | date:'d M Y' }}</td>
+                            <td>
+                                <a href="{% url 'blog:update_post' post.pk %}" class="btn btn-success btn-sm">Modificar</a>
+                                <a href="{% url 'blog:delete_post' post.pk %}" class="btn btn-danger btn-sm">Borrar</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+         </div>
+        {% else %}
+            <div class="d-flex justify-content-between">
+                <h2 class="mb-5 pt-3 card-title h4">{{ message }}</h2>
+                <div class="align-self-start">
+                    <a href="{% url 'blog:create_post' %}" class="text-decoration-none rounded shadow btn btn-dark">Crear Post</a>
+                </div>  
+            </div> 
+            <hr>
+        {% endif %}   
+    </div>
+</section>
+{% endblock %}

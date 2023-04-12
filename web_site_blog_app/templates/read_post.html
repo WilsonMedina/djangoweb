@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}{{ post.title }}{% endblock %}
+{% block content %}
+<section class="resume-section">
+    <div class="resume-section-content mt-5">
+        <!-- Blog post--> 
+        <div class="">
+            <img class="card-img-top" src="{{ post.image.url }}"/>
+            <div class="card-body">
+                <div class="card-text mt-4">
+                    {% if post %}
+                        {{ post.content | safe }}
+                    {% endif %}   
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

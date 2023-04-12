@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %} Sobre {% endblock %}
+{% block content %}
+<!--About-->
+<section class="resume-section" id="about">
+    <div class="resume-section-content mt-5">
+        {% if about %}
+            {% for a in about %}
+                <h1 class="mb-0">
+                    {{ a.first_name }}<span class="text-primary"> {{ a.last_name }}</span>
+                </h1>
+                <div class="subheading mb-5 mx-5">
+                    <strong>{{ a.profession }}</strong>
+                </div>
+                <div class="lead mb-5">
+                    {{ a.content | safe }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
